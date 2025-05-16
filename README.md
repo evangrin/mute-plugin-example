@@ -14,7 +14,7 @@ llowing:
 To launch VSCode
 - Go to visual studio installer, and select the 'launch' button next to Visual Studio Build Tools 2022. This will launch a terminal that contains the correct paths for C++ compiler and CMake jazz.
 - Once in this terminal, type the following commands
--  'cd ../../Projects/<project_you_are_working_on>' (this takes me to C:Projects/myProject/. It may be a different path for you)
+-  'cd ..\..\Projects\<project_you_are_working_on>' (this takes me to C:Projects/myProject/. It may be a different path for you. Also linux uses / but windows powershell uses \. keep  that in mind when switching directories)
   - 'code .'
 ![Uploading image.png…]()
 
