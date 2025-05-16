@@ -4,13 +4,18 @@
 //==============================================================================
 AudioPluginAudioProcessor::AudioPluginAudioProcessor()
      : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+                      
+                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
+                    parameters(*this, nullptr, "PARAMETERS", {
+                            std::make_unique<juce::AudioParameterFloat>(
+                            "gain",     // parameter ID
+                            "Gain",     // parameter name
+                            juce::NormalisableRange<float>(-60.0f, 0.0f), // dB range
+                            6.0f      // default value in dB
+                            )
+                        }
+                    )
 {
 }
 
@@ -122,9 +127,13 @@ bool AudioPluginAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 }
 
 void AudioPluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer, juce::MidiBuffer &midiMessages) {
-    auto *channeldata = buffer.getWritePointer(0);
+    auto *channeldatal = buffer.getWritePointer(0);
+    auto *channeldatar = buffer.getWritePointer(1);
+    float gainDB = *parameters.getRawParameterValue("gain");
+    float gainLinear = std::pow(10.0f, gainDB / 20.0f);  // -12 dB attenuation
     for (int i = 0; i < buffer.getNumSamples(); i++) {
-        channeldata[i] = 0.0f;
+        channeldatal[i] *= gainLinear;
+        channeldatar[i] *= gainLinear;
     }
 }
 
