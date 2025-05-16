@@ -11,7 +11,7 @@ You following steps have already been done for you, so you may skip them as long
 
 This means that when using VS Code, we should always open it by doing the following:
 To launch VSCode
-- Go to visual studio launcher, and select the 'launch' button next to Visual Studio Build Tools 2022. This will launch a terminal that contains the correct paths for C++ compiler and CMake jazz.
+- Go to visual studio installer, and select the 'launch' button next to Visual Studio Build Tools 2022. This will launch a terminal that contains the correct paths for C++ compiler and CMake jazz.
 - Once in this terminal, type the following commands
 -  'cd ../../Projects/<project_you_are_working_on>' (this takes me to C:Projects/myProject/. It may be a different path for you)
   - 'code .'
